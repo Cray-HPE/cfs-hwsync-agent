@@ -1,0 +1,4 @@
+#!/bin/bash
+
+docker build . -t cfs-hwsyncagent-codestyle-codestyle --target codestyle
+docker run --rm -v $PWD/results:/results cfs-hwsyncagent-codestyle-codestyle
