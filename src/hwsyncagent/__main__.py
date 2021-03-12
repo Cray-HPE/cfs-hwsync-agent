@@ -7,6 +7,7 @@ Copyright 2020, Cray Inc., A Hewlett Packard Enterprise Company
 
 import logging
 import sys
+import threading
 from time import sleep
 
 from .cfs.options import hardware_sync_interval
@@ -20,6 +21,17 @@ LOG_LEVEL = logging.INFO
 LOGGER = logging.getLogger('hwsyncagent.main')
 LOGGER.setLevel(LOG_LEVEL)
 
+
+def monotonic_liveliness_heartbeat():
+    """
+    Periodically add a timestamp to disk; this allows for reporting of basic
+    health at a minimum rate. This prevents the pod being marked as dead if
+    a period of no events have been monitored from k8s for an extended
+    period of time.
+    """
+    while True:
+        Timestamp()
+        time.sleep(10)
 
 def setup_logging():
     log_format = "%(asctime)-15s - %(levelname)-7s - %(name)s - %(message)s"
@@ -35,7 +47,12 @@ def setup_logging():
 
 def main_loop():
     LOGGER.info("Entering main event loop...")
-    Timestamp()
+
+    # Create a liveness thread to indicate overall health of the pod
+    heartbeat = threading.Thread(target=monotonic_liveliness_heartbeat,
+                                 args=())
+    heartbeat.start()
+
     previous_members = set()
     while True:
         # Normally, we would not sleep on our first iteration of the
