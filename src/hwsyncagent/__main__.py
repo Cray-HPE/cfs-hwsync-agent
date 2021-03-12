@@ -2,7 +2,7 @@
 Created on Jan 29, 2020
 
 @author: jsl
-Copyright 2020, Cray Inc., A Hewlett Packard Enterprise Company
+Copyright 2020-2021, Hewlett Packard Enterprise Development LP
 '''
 
 import logging
