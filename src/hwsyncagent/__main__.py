@@ -31,7 +31,8 @@ def monotonic_liveliness_heartbeat():
     """
     while True:
         Timestamp()
-        time.sleep(10)
+        sleep(10)
+
 
 def setup_logging():
     log_format = "%(asctime)-15s - %(levelname)-7s - %(name)s - %(message)s"
