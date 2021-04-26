@@ -1,5 +1,5 @@
-#!/bin/sh
-# Copyright 2019,2021 Hewlett Packard Enterprise Development LP
+#!/bin/bash
+# Copyright 2021 Hewlett Packard Enterprise Development LP
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -21,23 +21,5 @@
 #
 # (MIT License)
 
-set -e
-set -o pipefail
-
-mkdir -p /results
-python3 -m pip freeze 2>&1 | tee /results/pip_freeze.out
-export PYTHONPATH="/app/lib/"
-nosetests -v \
- -w /app/lib//test \
- --with-xunit \
- --xunit-file=/results/nosetests.xml \
- --with-coverage \
- --cover-erase \
- --cover-package=hwsyncagent \
- --cover-branches \
- --cover-inclusive \
- --cover-html \
- --cover-html-dir=/results/coverage \
- --cover-xml \
- --cover-xml-file=/results/coverage.xml \
- 2>&1 | tee /results/nosetests.out
+./update_versions.sh || exit 1
+exit 0
