@@ -35,7 +35,6 @@ ENDPOINT = "%s/%s" % (BASE_ENDPOINT, __name__.lower().split('.')[-1])
 DEFAULT_BODY = {'state': [],
                 'desiredConfig': '',
                 'errorCount': 0,
-                'retryPolicy': 3,
                 'enabled': True
                 }
 
