@@ -7,4 +7,4 @@ keywords:
   - cfs
   - cfs-hwsync-agent
 sources:
-  - "https://stash.us.cray.com/projects/SCMS/repos/cfs-hwsync-agent/browse"
+  - "https://github.com/Cray-HPE/cfs-hwsync-agent"
