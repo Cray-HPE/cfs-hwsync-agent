@@ -79,11 +79,11 @@ pipeline {
 
                 stage('Chart') {
                     environment {
-                        CHART_VERSION = sh(returnStdout: true, script: "head -1 .chart_version").trim()
+                        DOCKER_VERSION = sh(returnStdout: true, script: "head -1 .docker_version").trim()
                     }
 
                     steps {
-                        updateCsmHelmChartAppVersion(chartPath: "${WORKSPACE}/kubernetes/${NAME}", appVersion:  env.CHART_VERSION)
+                        updateCsmHelmChartAppVersion(chartPath: "${WORKSPACE}/kubernetes/${NAME}", appVersion:  env.DOCKER_VERSION)
                         sh "make chart"
                     }
                 }
