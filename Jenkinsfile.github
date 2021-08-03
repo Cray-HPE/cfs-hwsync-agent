@@ -78,11 +78,6 @@ pipeline {
                 }
 
                 stage('Chart') {
-                    environment {
-                        DOCKER_VERSION = sh(returnStdout: true, script: "head -1 .docker_version").trim()
-                        CHART_VERSION = sh(returnStdout: true, script: "head -1 .chart_version").trim()
-                    }
-
                     steps {
                         sh "make chart"
                     }
