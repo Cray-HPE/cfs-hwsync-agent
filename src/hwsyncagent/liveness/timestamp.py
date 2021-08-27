@@ -27,9 +27,8 @@ Created on April 27, 2020
 @author: jsl
 '''
 import logging
-from datetime import datetime, timedelta
+from datetime import timedelta
 
-from hwsyncagent.liveness import TIMESTAMP_PATH
 from hwsyncagent.cfs.options import hardware_sync_interval
 from liveness.timestamp import Timestamp as TimestampBase
 
@@ -38,25 +37,6 @@ LOGGER = logging.getLogger(__name__)
 
 
 class Timestamp(TimestampBase):
-    def __init__(self, path=TIMESTAMP_PATH, when=None):
-        '''
-        Creates a new timestamp representation to <path>; on initialization,
-        this timestamp is written to disk in a persistent fashion.
-
-        Newly initialized timestamps with a path reference to an existing file
-        overwrites the file in question.
-        '''
-        self.path = path
-        with open(self.path, 'w') as timestamp_file:
-            if not when:
-                # how?
-                timestamp_file.write(str(datetime.now().timestamp()))
-            else:
-                timestamp_file.write(str(when.timestamp()))
-
-    def __str__(self):
-        return 'Timestamp from %s; age: %s' % (self.value.strftime("%m/%d/%Y, %H:%M:%S"), self.age)
-
     @property
     def max_age(self):
         """

@@ -49,7 +49,6 @@ CMD [ "./docker_codestyle_entry.sh" ]
 
 # Application Image
 FROM base as application
-RUN adduser -g "CFS Hwsync Agent User" --uid 30999 --disabled-password appuser
-USER appuser
+USER 65534:65534
 ENV PYTHONPATH "/app/lib/"
 ENTRYPOINT [ "python3", "-m", "hwsyncagent" ]
