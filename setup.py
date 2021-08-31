@@ -1,5 +1,5 @@
-# setup.py for cray-boa
-# Copyright 2019,2021 Hewlett Packard Enterprise Development LP
+# setup.py for cfs-hwsync-agent
+# Copyright 2019, 2021 Hewlett Packard Enterprise Development LP
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -26,6 +26,9 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+with open("gitInfo.txt", "r") as fh:
+    long_description += '\n' + fh.read()
+
 with open(".version", "r") as fh:
     version_str = fh.read()
 
@@ -37,12 +40,12 @@ setuptools.setup(
     description="CFS Hardware Syncrhonization Agent",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://stash.us.cray.com/projects/SCMS/repos/cfs-hwsync-agent/browse",
+    url="https://github.com/Cray-HPE/cfs-hwsync-agent",
     packages=['hwsyncagent', 'hwsyncagent.cfs', 'hwsyncagent.hwstatemgr'],
     keywords="cray hpe configuration hardware sychronization agent",
     classifiers=(
-        "Programming Language :: Python :: 3.7",
-        "License :: Other/Proprietary License",
+        "Programming Language :: Python :: 3.6",
+        "License :: OSI Approved :: MIT License",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: System :: Systems Administration",
     ),
