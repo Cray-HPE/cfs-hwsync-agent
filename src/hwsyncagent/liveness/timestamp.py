@@ -27,9 +27,8 @@ Created on April 27, 2020
 @author: jsl
 '''
 import logging
-from datetime import datetime, timedelta
+from datetime import timedelta
 
-from hwsyncagent.liveness import TIMESTAMP_PATH
 from hwsyncagent.cfs.options import hardware_sync_interval
 from liveness.timestamp import Timestamp as TimestampBase
 
@@ -38,7 +37,6 @@ LOGGER = logging.getLogger(__name__)
 
 
 class Timestamp(TimestampBase):
-
     @property
     def max_age(self):
         """

@@ -49,5 +49,6 @@ CMD [ "./docker_codestyle_entry.sh" ]
 
 # Application Image
 FROM base as application
+USER 65534:65534
 ENV PYTHONPATH "/app/lib/"
 ENTRYPOINT [ "python3", "-m", "hwsyncagent" ]
