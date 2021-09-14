@@ -21,7 +21,7 @@
 # (MIT License)
 
 # Base image
-FROM arti.dev.cray.com/baseos-docker-master-local/alpine:3.13 as base
+FROM artifactory.algol60.net/docker.io/alpine:3.13 as base
 WORKDIR /app
 COPY constraints.txt requirements.txt ./
 RUN apk add --upgrade --no-cache apk-tools &&  \
@@ -49,5 +49,6 @@ CMD [ "./docker_codestyle_entry.sh" ]
 
 # Application Image
 FROM base as application
+USER 65534:65534
 ENV PYTHONPATH "/app/lib/"
 ENTRYPOINT [ "python3", "-m", "hwsyncagent" ]
