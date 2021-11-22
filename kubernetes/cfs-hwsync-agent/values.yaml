@@ -8,8 +8,8 @@
 #   pullPolicy: "" (default = "IfNotPresent")
 
 hwsync_image:
-  repository: cray/cfs-hwsync-agent
-  version: latest
+  repository: artifactory.algol60.net/csm-docker/stable/cfs-hwsync-agent
+  version: 0.0.0-image
 
 cray-service:
   type: Deployment
@@ -22,8 +22,7 @@ cray-service:
     cfs-hwsync-agent:
       name: cfs-hwsync-agent
       image:
-        repository: cray/cfs-hwsync-agent
-        pullPolicy: Always
+        repository: artifactory.algol60.net/csm-docker/stable/cfs-hwsync-agent
       livenessProbe:
         exec:
           command:
