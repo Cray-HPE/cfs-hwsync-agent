@@ -28,7 +28,7 @@
 from hwsyncagent import HWSyncAgentException
 from hwsyncagent import PROTOCOL
 
-API_VERSION = 'v1'
+API_VERSION = 'v2'
 ENDPOINT = "%s://cray-smd/hsm/%s" % (PROTOCOL, API_VERSION)
 
 
