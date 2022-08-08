@@ -35,5 +35,5 @@ path_to_chart=$( cd $path_to_chart >/dev/null 2>&1 && pwd )
 chart_name=$(basename $path_to_chart)
 
 docker run --rm -it -v $path_to_chart:/charts/$chart_name -v $this_dir:/packaged-dest \
-  arti.dev.cray.com/csm-internal-docker-stable-local/craypc/chartsutil:latest \
+  arti.hpc.amslabs.hpecorp.net/csm-internal-docker-stable-local/craypc/chartsutil:latest \
   /bin/sh -c "cd /charts/$chart_name && helm dep up && helm package . -d /packaged-dest"
