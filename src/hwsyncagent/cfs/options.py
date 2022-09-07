@@ -87,3 +87,11 @@ def hardware_sync_interval():
         except CFSException:
             pass
         return 10
+
+
+def logging_level():
+    key = 'loggingLevel'
+    try:
+        return str(read_options()[key])
+    except (KeyError, ValueError, CFSException):
+        return 'INFO'
