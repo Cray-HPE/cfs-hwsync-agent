@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
-
 - Convert to gitflow/gitversion.
 - Spelling corrections.
+- The logging level is now controlled by a CFS option
 
