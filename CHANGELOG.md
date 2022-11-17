@@ -11,4 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Spelling corrections.
 - The logging level is now controlled by a CFS option
 - Authenticate to CSM's artifactory
+- Use v2 of the csm-changelog-checker
+
 
