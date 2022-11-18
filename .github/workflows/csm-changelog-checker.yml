@@ -38,4 +38,4 @@ jobs:
     )"
     steps:
       - name: Ensure changelog has changes
-        uses: Cray-HPE/.github/actions/csm-changelog-checker@v2-csm-changelog-checker
+        uses: Cray-HPE/.github/actions/csm-changelog-checker@v1-csm-changelog-checker
