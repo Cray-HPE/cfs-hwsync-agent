@@ -40,6 +40,7 @@ pipeline {
         NAME = "cfs-hwsync-agent"
         DESCRIPTION = "Configuration Framework Service Hardware Synchronization Agent"
         IS_STABLE = getBuildIsStable()
+        DOCKER_BUILDKIT = "1"
     }
 
     stages {
