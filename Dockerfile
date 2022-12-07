@@ -25,7 +25,7 @@
 FROM artifactory.algol60.net/docker.io/alpine:3.15 as base
 WORKDIR /app
 COPY constraints.txt requirements.txt ./
-RUN apk add --upgrade --no-cache apk-tools &&  \
+RUN --mount=type=secret,id=netrc,target=/root/.netrc apk add --upgrade --no-cache apk-tools &&  \
 	apk update && \
 	apk add --no-cache gcc g++ python3-dev musl-dev libffi-dev openssl-dev py3-pip && \
 	apk -U upgrade --no-cache && \
