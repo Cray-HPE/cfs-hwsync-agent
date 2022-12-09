@@ -22,20 +22,19 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 #
 import logging
-import sys
+import os
 import threading
 from time import sleep
 
-from .cfs.options import hardware_sync_interval
+from .cfs.options import hardware_sync_interval, logging_level
 from .cfs.components import read_registered_component_ids, create_new_components
 from .cfs import CFSException
 from .hwstatemgr.components import read_all_node_xnames, HWStateManagerException
 from hwsyncagent.liveness.timestamp import Timestamp
 
 
-LOG_LEVEL = logging.INFO
-LOGGER = logging.getLogger('hwsyncagent.main')
-LOGGER.setLevel(LOG_LEVEL)
+DEFAULT_LOG_LEVEL = logging.INFO
+LOGGER = logging.getLogger(__name__)
 
 
 def monotonic_liveliness_heartbeat():
@@ -52,14 +51,25 @@ def monotonic_liveliness_heartbeat():
 
 def setup_logging():
     log_format = "%(asctime)-15s - %(levelname)-7s - %(name)s - %(message)s"
-    formatter = logging.Formatter(log_format)
-    _stdout_handler = logging.StreamHandler(sys.stdout)
-    _stdout_handler.setLevel(LOG_LEVEL)
-    _stdout_handler.setFormatter(formatter)
-    PROJECT_LOGGER = logging.getLogger('hwsyncagent')
-    PROJECT_LOGGER.addHandler(_stdout_handler)
-    PROJECT_LOGGER.setLevel(LOG_LEVEL)
-    LOGGER.info("logging established")
+    requested_log_level = os.environ.get('STARTING_CFS_LOG_LEVEL', DEFAULT_LOG_LEVEL)
+    log_level = logging.getLevelName(requested_log_level)
+    logging.basicConfig(level=log_level, format=log_format)
+
+
+def update_log_level() -> None:
+    """ Updates the current logging level base on the value in the options database """
+    try:
+        new_level = logging.getLevelName(logging_level().upper())
+        current_level = LOGGER.getEffectiveLevel()
+        if current_level != new_level:
+            LOGGER.log(current_level, 'Changing logging level from {} to {}'.format(
+                logging.getLevelName(current_level), logging.getLevelName(new_level)))
+            logger = logging.getLogger()
+            logger.setLevel(new_level)
+            LOGGER.log(new_level, 'Logging level changed from {} to {}'.format(
+                logging.getLevelName(current_level), logging.getLevelName(new_level)))
+    except Exception as e:
+        LOGGER.error('Error updating logging level: {}'.format(e))
 
 
 def main_loop():
@@ -77,6 +87,7 @@ def main_loop():
         # the istio proxy sidecar has not yet set up its routes correctly.
         # For this reason, logic specific to skipping the sleep on the first
         # iteration has been removed.
+        update_log_level()
         LOGGER.debug("Querying sync interval for sleep")
         sleep(hardware_sync_interval())
         Timestamp()
@@ -128,4 +139,3 @@ def main_loop():
 if __name__ == '__main__':
     setup_logging()
     main_loop()
-

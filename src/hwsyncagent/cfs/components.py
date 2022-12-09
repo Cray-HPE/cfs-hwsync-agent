@@ -54,7 +54,7 @@ def read_registered_component_ids():
     try:
         response.raise_for_status()
     except HTTPError as hpe:
-        LOGGER.error("Unexptected response from CFS: %s", response)
+        LOGGER.error("Unexpected response from CFS: %s", response)
         raise CFSException(hpe)
     try:
         all_components = json.loads(response.text)
@@ -91,7 +91,7 @@ def create_new_components(ids):
     """
     This routine supports creation of multiple components.
 
-    ids is an interable collection of component names to create in CFS.
+    ids is an iterable collection of component names to create in CFS.
     """
     session = requests_retry_session()
     ids_created = set()
