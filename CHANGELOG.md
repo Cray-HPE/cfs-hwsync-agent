@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Spelling corrections.
 - The logging level is now controlled by a CFS option
 
+## [1.8.2] - 2022-12-20
+### Added
+- Add Artifactory authentication to Jenkinsfile
 
 ## [1.8.1] 2022-12-02
 ### Aded
