@@ -44,7 +44,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/Cray-HPE/cfs-hwsync-agent",
     packages=['hwsyncagent', 'hwsyncagent.cfs', 'hwsyncagent.hwstatemgr'],
-    keywords="cray hpe configuration hardware sychronization agent",
+    keywords="cray hpe configuration hardware synchronization agent",
     classifiers=(
         "Programming Language :: Python :: 3.6",
         "License :: OSI Approved :: MIT License",
