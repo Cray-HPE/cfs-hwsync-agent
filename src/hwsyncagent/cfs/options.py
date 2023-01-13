@@ -48,7 +48,7 @@ def read_options():
     try:
         response.raise_for_status()
     except HTTPError as hpe:
-        LOGGER.error("Unexptected response from CFS.")
+        LOGGER.error("Unexpected response from CFS.")
         raise CFSException(hpe)
     try:
         return json.loads(response.text)
@@ -72,7 +72,7 @@ def patch_options(obj):
     try:
         response.raise_for_status()
     except HTTPError as hpe:
-        LOGGER.error("Unexptected response from CFS.")
+        LOGGER.error("Unexpected response from CFS.")
         raise CFSException(hpe)
 
 
@@ -87,3 +87,11 @@ def hardware_sync_interval():
         except CFSException:
             pass
         return 10
+
+
+def logging_level():
+    key = 'loggingLevel'
+    try:
+        return str(read_options()[key])
+    except (KeyError, ValueError, CFSException):
+        return 'INFO'
