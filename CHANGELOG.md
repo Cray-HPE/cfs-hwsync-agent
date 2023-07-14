@@ -31,6 +31,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 - Removed defunct files leftover from previous versioning system
 
+### Changed
+- Updated to the v3 CFS api
+
 ## [1.9.0] - 2023-01-12
 ### Changed
 - Spelling corrections.
