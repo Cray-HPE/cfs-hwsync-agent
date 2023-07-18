@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Added top level exception handling
 
+### Dependencies
+- Bump `PyYAML` from 5.4.1 to 6.0.1 to avoid build issue caused by https://github.com/yaml/pyyaml/issues/601
+
+### Removed
+- Removed defunct files leftover from previous versioning system
+
 ## [1.8.2] - 2022-12-20
 ### Added
 - Add Artifactory authentication to Jenkinsfile
