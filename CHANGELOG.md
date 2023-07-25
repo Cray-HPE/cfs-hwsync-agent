@@ -6,8 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
-### Dependencies
+<<<<<<< HEAD
 - Use `update_external_versions` to get latest patch version of `liveness` Python module.
+- Bumped dependency patch versions:
+| Package                  | From     | To       |
+|--------------------------|----------|----------|
+| `cachetools`             | 4.2.1    | 4.2.4    |
+| `msgpack`                | 1.0.2    | 1.0.5    |
+| `oauthlib`               | 3.1.0    | 3.1.1    |
+| `python-dateutil`        | 2.8.1    | 2.8.2    |
+| `requests-oauthlib`      | 1.3.0    | 1.3.1    |
+| `rsa`                    | 4.7      | 4.7.2    |
+| `urllib3`                | 1.26.2   | 1.26.16  |
 
 ## [1.9.1] - 2023-07-18
 ### Dependencies
