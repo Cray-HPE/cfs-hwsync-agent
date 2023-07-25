@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
-<<<<<<< HEAD
+
+## [1.9.2] - 2023-07-25
+### Dependencies
 - Use `update_external_versions` to get latest patch version of `liveness` Python module.
 - Bumped dependency patch versions:
 | Package                  | From     | To       |
