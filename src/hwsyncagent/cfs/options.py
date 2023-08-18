@@ -1,7 +1,7 @@
 #
 # MIT License
 #
-# (C) Copyright 2020-2022 Hewlett Packard Enterprise Development LP
+# (C) Copyright 2020-2023 Hewlett Packard Enterprise Development LP
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -77,7 +77,7 @@ def patch_options(obj):
 
 
 def hardware_sync_interval():
-    key = 'hardwareSyncInterval'
+    key = 'hardware_sync_interval'
     try:
         return int(read_options()[key])
     except (KeyError, ValueError, CFSException):
@@ -90,7 +90,7 @@ def hardware_sync_interval():
 
 
 def logging_level():
-    key = 'loggingLevel'
+    key = 'logging_level'
     try:
         return str(read_options()[key])
     except (KeyError, ValueError, CFSException):
