@@ -23,7 +23,7 @@
 #
 from hwsyncagent import PROTOCOL, HWSyncAgentException
 
-API_VERSION = 'v2'
+API_VERSION = 'v3'
 SERVICE_NAME = 'cray-cfs-api'
 ENDPOINT = "%s://%s/%s" % (PROTOCOL, SERVICE_NAME, API_VERSION)
 
