@@ -21,9 +21,9 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 #
-'''
+"""
 This is an HSM Component client, designed to interact with cray-smd/hsm/v1/State/Component endpoint.
-'''
+"""
 
 import logging
 import json
@@ -35,33 +35,37 @@ from . import ENDPOINT as BASE_ENDPOINT
 from . import HWStateManagerException
 
 LOGGER = logging.getLogger(__name__)
-ENDPOINT = '%s/State/Components/' % (BASE_ENDPOINT)
+ENDPOINT = '%s/State/Components/' % BASE_ENDPOINT
 
 
-def read_all_node_xnames():
+def read_all_node_xnames(component_types=None):
     """
-    Queries HSM for the full set of xname components that
-    have been discovered; return these as a set.
+    Queries HSM for the full set of xname components that have been discovered;
+    filtering entries down to xnames belonging to the component_types set.
+    Return: A set of strings representing xnames.
     """
-    client = requests_retry_session()
+    if component_types is None:
+        component_types = set(['Node', 'VirtualNode'])
+    session = requests_retry_session()
+    endpoint = '%s/State/Components/' % BASE_ENDPOINT
     try:
-        response = client.get(ENDPOINT)
+        response = session.get(endpoint)
     except ConnectionError as ce:
         LOGGER.error("Unable to contact HSM service: %s", ce)
-        raise HWStateManagerException(ce)
+        raise HWStateManagerException(ce) from ce
     try:
         response.raise_for_status()
     except (HTTPError, MaxRetryError) as hpe:
         LOGGER.error("Unexpected response from HSM: %s", response)
-        raise HWStateManagerException(hpe)
+        raise HWStateManagerException(hpe) from hpe
     try:
         json_body = json.loads(response.text)
     except json.JSONDecodeError as jde:
         LOGGER.error("Non-JSON response from HSM: %s", response.text)
-        raise HWStateManagerException(jde)
+        raise HWStateManagerException(jde) from jde
     try:
         return set([component['ID'] for component in json_body['Components']
-                    if component.get('Type', None) == 'Node'])
+                    if component.get('Type', None) in component_types])
     except KeyError as ke:
         LOGGER.error("Unexpected API response from HSM")
-        raise HWStateManagerException(ke)
+        raise HWStateManagerException(ke) from ke
