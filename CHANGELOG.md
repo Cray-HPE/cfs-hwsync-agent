@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Parameterized HSM component discovery to filter to both Nodes and VirtualNodes during discovery.
 
+### Fixed
+- Added top level exception handling
+
 ## [1.10.0] - 2023-08-18
 ### Changed
 - Disabled concurrent Jenkins builds on same branch/commit
