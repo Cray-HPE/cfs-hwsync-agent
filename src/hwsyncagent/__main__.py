@@ -81,48 +81,52 @@ def main_loop():
         sleep(hardware_sync_interval())
         Timestamp()
 
-        # Query HSM for members
         try:
-            LOGGER.debug("Querying xnames from HSM")
-            members = read_all_node_xnames()
-        except HWStateManagerException:
-            LOGGER.error("Unable to query HSM member components; retrying...")
-            continue
-        new_members = members - previous_members
-        removed_members = previous_members - members
-        if new_members:
-            new_members_count = len(new_members)
-            if new_members_count <= 5:
-                LOGGER.info("%s discovered from HSM.", ', '.join(sorted(new_members)))
-            else:
-                LOGGER.info("%s discovered members from HSM.", new_members_count)
-        if removed_members:
-            removed_members_count = len(removed_members)
-            LOGGER.info("HSM no longer reporting membership for %s components...",
-                        removed_members_count)
-        previous_members = members
-
-        # Query the set of components CFS is aggregating status for
-        try:
-            LOGGER.debug("Querying CFS component IDs")
-            cfs_defined_components = read_registered_component_ids()
-        except CFSException as cfse:
-            LOGGER.info(cfse)
-            continue
-
-        # Determine which components are missing from CFS
-        missing_xnames_from_cfs = members - cfs_defined_components
-
-        # Create all missing components
-        if missing_xnames_from_cfs:
+            # Query HSM for members
             try:
-                LOGGER.debug("Creating missing components in CFS")
-                create_new_components(sorted(missing_xnames_from_cfs))
-                LOGGER.info("Registered %s new components with CFS.",
-                            len(missing_xnames_from_cfs))
+                LOGGER.debug("Querying xnames from HSM")
+                members = read_all_node_xnames()
+            except HWStateManagerException:
+                LOGGER.error("Unable to query HSM member components; retrying...")
+                continue
+            new_members = members - previous_members
+            removed_members = previous_members - members
+            if new_members:
+                new_members_count = len(new_members)
+                if new_members_count <= 5:
+                    LOGGER.info("%s discovered from HSM.", ', '.join(sorted(new_members)))
+                else:
+                    LOGGER.info("%s discovered members from HSM.", new_members_count)
+            if removed_members:
+                removed_members_count = len(removed_members)
+                LOGGER.info("HSM no longer reporting membership for %s components...",
+                            removed_members_count)
+            previous_members = members
+
+            # Query the set of components CFS is aggregating status for
+            try:
+                LOGGER.debug("Querying CFS component IDs")
+                cfs_defined_components = read_registered_component_ids()
             except CFSException as cfse:
                 LOGGER.info(cfse)
                 continue
+
+            # Determine which components are missing from CFS
+            missing_xnames_from_cfs = members - cfs_defined_components
+
+            # Create all missing components
+            if missing_xnames_from_cfs:
+                try:
+                    LOGGER.debug("Creating missing components in CFS")
+                    create_new_components(sorted(missing_xnames_from_cfs))
+                    LOGGER.info("Registered %s new components with CFS.",
+                                len(missing_xnames_from_cfs))
+                except CFSException as cfse:
+                    LOGGER.info(cfse)
+                    continue
+        except Exception as e:
+            LOGGER.exception(f"Unhandled exception: {e}")
+
 
 
 if __name__ == '__main__':
