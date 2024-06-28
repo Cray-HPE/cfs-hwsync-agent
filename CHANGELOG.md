@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - When building unstable charts, have them point to the corresponding unstable Docker image
 - Remove Randy Kleinman from the chart maintainer list; add Mitch Harding
 
+### Dependencies
+- CASMCMS-9030: Bump minimum `cray-services` base chart version from 7.0.0 to 10.0.5
+
 ## [1.12.0] - 2024-02-22
 ### Dependencies
 - Bump `kubernetes` from 12.0.1 to 22.6.0 to match CSM 1.6 Kubernetes version
