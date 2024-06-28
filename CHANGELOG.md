@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- When building unstable charts, have them point to the corresponding unstable Docker image
+
 ## [1.12.0] - 2024-02-22
 ### Dependencies
 - Bump `kubernetes` from 12.0.1 to 22.6.0 to match CSM 1.6 Kubernetes version
