@@ -1,7 +1,7 @@
 #
 # MIT License
 #
-# (C) Copyright 2019-2022 Hewlett Packard Enterprise Development LP
+# (C) Copyright 2019-2022, 2024 Hewlett Packard Enterprise Development LP
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -29,8 +29,11 @@ RUN --mount=type=secret,id=netrc,target=/root/.netrc apk add --upgrade --no-cach
 	apk update && \
 	apk add --no-cache gcc g++ python3-dev musl-dev libffi-dev openssl-dev py3-pip && \
 	apk -U upgrade --no-cache && \
+    pip3 list --format freeze && \
     pip3 install --no-cache-dir -U pip && \
-    pip3 install --no-cache-dir -r requirements.txt
+    pip3 list --format freeze && \
+    pip3 install --no-cache-dir -r requirements.txt && \
+    pip3 list --format freeze
 COPY src/hwsyncagent/ lib/hwsyncagent/
 
 # Testing Image
@@ -39,7 +42,8 @@ WORKDIR /app/
 COPY src/test lib/test/
 COPY docker_test_entry.sh .
 COPY test-requirements.txt .
-RUN pip3 install --no-cache-dir -r test-requirements.txt
+RUN pip3 install --no-cache-dir -r test-requirements.txt && \
+    pip3 list --format freeze
 CMD [ "./docker_test_entry.sh" ]
 
 # Codestyle reporting
