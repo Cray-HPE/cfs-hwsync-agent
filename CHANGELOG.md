@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Created `MANIFEST.in` file for Python package, to ensure source module is usable
+- Added `install_requires` data to `setup.py`
 
 ### Changed
 - List installed Python packages in Dockerfile for build logging purposes
