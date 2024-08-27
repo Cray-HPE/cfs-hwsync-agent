@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Dependencies
 - CSM 1.6 moved to Kubernetes 1.24, so use client v24.x to ensure compatability
+- Simplify how `liveness` module major/minor version are pinned
 
 ## [1.12.1] - 2024-06-28
 ### Changed
