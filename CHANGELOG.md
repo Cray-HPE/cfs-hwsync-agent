@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Dependencies
+- Simplify how `liveness` module major/minor version are pinned
 
 ### Changed
 - When building unstable charts, have them point to the corresponding unstable Docker image
