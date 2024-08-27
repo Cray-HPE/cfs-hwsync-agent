@@ -22,7 +22,7 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 #
 # Base image
-FROM artifactory.algol60.net/docker.io/alpine:3.15 as base
+FROM artifactory.algol60.net/docker.io/alpine:3.15 AS base
 WORKDIR /app
 COPY constraints.txt requirements.txt ./
 RUN --mount=type=secret,id=netrc,target=/root/.netrc apk add --upgrade --no-cache apk-tools &&  \
@@ -37,7 +37,7 @@ RUN --mount=type=secret,id=netrc,target=/root/.netrc apk add --upgrade --no-cach
 COPY src/hwsyncagent/ lib/hwsyncagent/
 
 # Testing Image
-FROM base as testing
+FROM base AS testing
 WORKDIR /app/
 COPY src/test lib/test/
 COPY docker_test_entry.sh .
@@ -47,13 +47,13 @@ RUN pip3 install --no-cache-dir -r test-requirements.txt && \
 CMD [ "./docker_test_entry.sh" ]
 
 # Codestyle reporting
-FROM testing as codestyle
+FROM testing AS codestyle
 WORKDIR /app/
 COPY docker_codestyle_entry.sh setup.cfg ./
 CMD [ "./docker_codestyle_entry.sh" ]
 
 # Application Image
-FROM base as application
+FROM base AS application
 USER 65534:65534
 ENV PYTHONPATH "/app/lib/"
 ENTRYPOINT [ "python3", "-m", "hwsyncagent" ]
