@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Dependencies
 - Simplify how `liveness` module major/minor version are pinned
+- Use `requests_retry_session` Python package instead of duplicating its code
 
 ## [1.11.0] - 2023-09-29
 ### Changed
