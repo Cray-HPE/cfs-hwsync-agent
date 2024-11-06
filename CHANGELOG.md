@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.12.4] - 2024-11-06
+### Fixed
+- CASMCMS-9190: Discard SMD components whose ID fields are blank
+
 ## [1.12.3] - 2024-09-05
 ### Dependencies
 - CASMCMS-9135: Bump minimum `cray-services` base chart version from 10.0.5 to 11.0.0
