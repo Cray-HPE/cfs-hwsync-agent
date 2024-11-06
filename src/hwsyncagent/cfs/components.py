@@ -116,11 +116,16 @@ def create_new_components(ids):
     put_filters = { 'ids': ','.join(list(set(ids))) }
     put_patch = deepcopy(DEFAULT_BODY)
     put_body = { 'patch': put_patch, 'filters': put_filters }
+    LOGGER.info(str(put_body))
     try:
         response = session.put(ENDPOINT, json=put_body)
     except (ConnectionError, MaxRetryError) as ce:
         LOGGER.error("Unable to connect to CFS")
         raise CFSException(ce)
+    if response.text:
+        LOGGER.info(f"text: {response.text}")
+    if response.body:
+        LOGGER.info(f"text: {response.body}")
     try:
         response.raise_for_status()
     except HTTPError as hpe:
