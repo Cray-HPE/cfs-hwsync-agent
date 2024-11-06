@@ -1,7 +1,7 @@
 #
 # MIT License
 #
-# (C) Copyright 2020-2022 Hewlett Packard Enterprise Development LP
+# (C) Copyright 2020-2022, 2024 Hewlett Packard Enterprise Development LP
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -60,8 +60,11 @@ def read_all_node_xnames():
         LOGGER.error("Non-JSON response from HSM: %s", response.text)
         raise HWStateManagerException(jde)
     try:
+        # Return the ID field for nodes which meet both of the following criteria:
+        # - ID field is not empty
+        # - Type field is Node
         return set([component['ID'] for component in json_body['Components']
-                    if component.get('Type', None) == 'Node'])
+                    if component['ID'] and component.get('Type', None) == 'Node'])
     except KeyError as ke:
         LOGGER.error("Unexpected API response from HSM")
         raise HWStateManagerException(ke)
