@@ -1,7 +1,7 @@
 #
 # MIT License
 #
-# (C) Copyright 2020-2023 Hewlett Packard Enterprise Development LP
+# (C) Copyright 2020-2024 Hewlett Packard Enterprise Development LP
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -85,7 +85,7 @@ def get_components(parameters=None):
 
 def create_new_component(component_id, session=None):
     """
-    Creates one o CFS component representation in CFS. In most cases,
+    Creates one CFS component representation in CFS. In most cases,
     component_id represents a hardware xname. This operation is an
     idempotent put action, so any subsequent calls with the same id
     or ids will functionally 'zero' a component to a newly initialized
@@ -113,18 +113,11 @@ def create_new_components(ids):
     ids is an iterable collection of component names to create in CFS.
     """
     session = requests_retry_session()
-    ids_created = set()
-    put_bodies = []
-    for entry in ids:
-        if entry in ids_created:
-            LOGGER.warning("Request to put same ID within same PUT operation; skipping")
-            continue
-        new_body = deepcopy(DEFAULT_BODY)
-        new_body['id'] = entry
-        put_bodies.append(new_body)
-        ids_created.add(entry)
+    put_filters = { 'ids': ','.join(list(set(ids))) }
+    put_patch = deepcopy(DEFAULT_BODY)
+    put_body = { 'patch': put_patch, 'filters': put_filters }
     try:
-        response = session.put(ENDPOINT, json=put_bodies)
+        response = session.put(ENDPOINT, json=put_body)
     except (ConnectionError, MaxRetryError) as ce:
         LOGGER.error("Unable to connect to CFS")
         raise CFSException(ce)
