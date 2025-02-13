@@ -6,8 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.13.0] - 2025-02-13
 ### Dependencies
 - Bump `certifi` version to resolve CVE: https://snyk.io/vuln/SNYK-PYTHON-CERTIFI-5805047
+- CASMCMS-9282: Bump Alpine version from 3.15 to 3.18, because 3.15 no longer receives security patches
 
 ## [1.12.4] - 2024-11-06
 ### Fixed
