@@ -22,17 +22,23 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 #
 # Base image
-FROM artifactory.algol60.net/docker.io/alpine:3.18 AS base
+FROM artifactory.algol60.net/docker.io/alpine:3.21 AS base
 WORKDIR /app
+ENV VIRTUAL_ENV=/app/venv
 COPY constraints.txt requirements.txt ./
-RUN --mount=type=secret,id=netrc,target=/root/.netrc apk add --upgrade --no-cache apk-tools &&  \
+RUN apk add --upgrade --no-cache apk-tools &&  \
 	apk update && \
-	apk add --no-cache gcc g++ python3-dev musl-dev libffi-dev openssl-dev py3-pip && \
+	apk add --no-cache gcc g++ python3 python3-dev musl-dev libffi-dev openssl-dev py3-pip && \
 	apk -U upgrade --no-cache && \
+    python3 -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+RUN --mount=type=secret,id=netrc,target=/root/.netrc \
     pip3 list --format freeze && \
-    pip3 install --no-cache-dir -U pip && \
+    pip3 install --no-cache-dir -U pip -c constraints.txt && \
     pip3 list --format freeze && \
-    pip3 install --no-cache-dir -r requirements.txt && \
+    pip3 install --no-cache-dir --disable-pip-version-check -U setuptools wheel -c constraints.txt && \
+    pip3 list --format freeze && \
+    pip3 install --no-cache-dir --disable-pip-version-check -r requirements.txt && \
     pip3 list --format freeze
 COPY src/hwsyncagent/ lib/hwsyncagent/
 
@@ -42,7 +48,7 @@ WORKDIR /app/
 COPY src/test lib/test/
 COPY docker_test_entry.sh .
 COPY test-requirements.txt .
-RUN pip3 install --no-cache-dir -r test-requirements.txt && \
+RUN pip3 install --no-cache-dir --disable-pip-version-check -r test-requirements.txt && \
     pip3 list --format freeze
 CMD [ "./docker_test_entry.sh" ]
 
