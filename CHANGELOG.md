@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.13.0] - 2025-02-13
+### Dependencies
+- Bump `certifi` version to resolve CVE: https://snyk.io/vuln/SNYK-PYTHON-CERTIFI-5805047
+- CASMCMS-9282: Bump Alpine version from 3.15 to 3.21, because 3.15 no longer receives security patches;
+  Use Python venv inside Docker image.
+
 ## [1.12.4] - 2024-11-06
 ### Fixed
 - CASMCMS-9190: Discard SMD components whose ID fields are blank
