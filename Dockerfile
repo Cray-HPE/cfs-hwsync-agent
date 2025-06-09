@@ -22,7 +22,7 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 #
 # Base image
-FROM artifactory.algol60.net/docker.io/alpine:3.21 AS base
+FROM artifactory.algol60.net/docker.io/alpine:3.22 AS base
 WORKDIR /app
 ENV VIRTUAL_ENV=/app/venv
 COPY constraints.txt requirements.txt ./
