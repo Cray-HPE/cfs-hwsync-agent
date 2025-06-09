@@ -1,7 +1,7 @@
 #
 # MIT License
 #
-# (C) Copyright 2020-2022 Hewlett Packard Enterprise Development LP
+# (C) Copyright 2020-2025 Hewlett Packard Enterprise Development LP
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -81,6 +81,7 @@ def main_loop():
     heartbeat.start()
 
     previous_members = set()
+    in_query_msg = "in the initial query to HSM"
     while True:
         try:
             # Normally, we would not sleep on our first iteration of the
@@ -100,19 +101,25 @@ def main_loop():
             except HWStateManagerException:
                 LOGGER.error("Unable to query HSM member components; retrying...")
                 continue
+            LOGGER.debug("HSM query returned %d xnames", len(members))
             new_members = members - previous_members
             removed_members = previous_members - members
             if new_members:
                 new_members_count = len(new_members)
                 if new_members_count <= 5:
-                    LOGGER.info("%s discovered from HSM.", ', '.join(sorted(new_members)))
+                    LOGGER.info("%s found %s.", ', '.join(sorted(new_members)), in_query_msg)
                 else:
-                    LOGGER.info("%s discovered members from HSM.", new_members_count)
+                    LOGGER.info("Found %d xnames %s.", new_members_count, in_query_msg)
             if removed_members:
                 removed_members_count = len(removed_members)
-                LOGGER.info("HSM no longer reporting membership for %s components...",
-                            removed_members_count)
+                if removed_members_count <= 5:
+                    LOGGER.info("HSM no longer reporting membership for %s...",
+                                ', '.join(sorted(removed_members)))
+                else:
+                    LOGGER.info("HSM no longer reporting membership for %d components...",
+                                removed_members_count)
             previous_members = members
+            in_query_msg = "new in the latest HSM query (did not exist in the previous query)"
 
             # Query the set of components CFS is aggregating status for
             try:
@@ -127,8 +134,14 @@ def main_loop():
 
             # Create all missing components
             if missing_xnames_from_cfs:
+                missing_xnames_count = len(missing_xnames_from_cfs)
+                if missing_xnames_count <= 5:
+                    LOGGER.info("%s in HSM but not in CFS; trying to create them in CFS",
+                                missing_xnames_from_cfs)
+                else:
+                    LOGGER.info("%d xnames in HSM but not in CFS; trying to create them in CFS",
+                                missing_xnames_count)
                 try:
-                    LOGGER.debug("Creating missing components in CFS")
                     create_new_components(sorted(missing_xnames_from_cfs))
                     LOGGER.info("Registered %s new components with CFS.",
                                 len(missing_xnames_from_cfs))
@@ -137,7 +150,6 @@ def main_loop():
                     continue
         except Exception as e:
             LOGGER.exception(f"Unhandled exception: {e}")
-
 
 
 if __name__ == '__main__':

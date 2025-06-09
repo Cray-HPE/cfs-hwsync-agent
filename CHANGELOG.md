@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- CASMCMS-7979: Improved and clarified log messages around discovering xnames from HSM and adding them to CFS
+
 ## [1.13.0] - 2025-02-13
 ### Dependencies
 - Bump `certifi` version to resolve CVE: https://snyk.io/vuln/SNYK-PYTHON-CERTIFI-5805047
