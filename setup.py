@@ -1,7 +1,7 @@
 #
 # MIT License
 #
-# (C) Copyright 2019, 2021-2022, 2024 Hewlett Packard Enterprise Development LP
+# (C) Copyright 2019, 2021-2022, 2024-2025 Hewlett Packard Enterprise Development LP
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -56,7 +56,7 @@ setuptools.setup(
     packages=['hwsyncagent', 'hwsyncagent.cfs', 'hwsyncagent.hwstatemgr'],
     keywords="cray hpe configuration hardware synchronization agent",
     classifiers=(
-        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.12",
         "License :: OSI Approved :: MIT License",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: System :: Systems Administration",
