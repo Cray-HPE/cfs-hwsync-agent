@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.14.0] - 2025-06-09
+
+### Changed
+- CASMCMS-7979: Improved and clarified log messages around discovering xnames from HSM and adding them to CFS
+- Corrected Python version in `setup.py`
+
+### Dependencies
+- Bumped Alpine version from 3.21 to 3.22
+- Bumped Python dependency versions:
+| Package                  | From      | To        |
+|--------------------------|-----------|-----------|
+| `certifi`                | 2023.7.22 | 2025.4.26 |
+| `kubernetes`             | 24.2.x    | 32.0.1    |
+| `msgpack`                | 1.0.5     | 1.0.8     |
+| `oauthlib`               | 3.1.1     | 3.2.2     |
+| `PyYAML`                 | 6.0.1     | 6.0.2     |
+| `requests-retry-session` | 0.1.4     | 2.0.2     |
+| `urllib3`                | 1.26.16   | 1.26.20   |
+
 ## [1.13.0] - 2025-02-13
 ### Dependencies
 - Bump `certifi` version to resolve CVE: https://snyk.io/vuln/SNYK-PYTHON-CERTIFI-5805047
