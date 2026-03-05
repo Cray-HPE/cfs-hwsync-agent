@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Include process and thread IDs in log messages
+
 ## [1.14.1] - 2025-07-02
 ### Dependencies
 - CASMCMS-9468: Specify different `requests-retry-session` version based on Python version
