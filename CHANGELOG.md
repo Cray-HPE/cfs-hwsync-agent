@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.15.0] - 2026-03-17
+### Changed
+- Include process and thread IDs in log messages
+
+### Dependencies
+- CASMCMS-9631: Updated `urllib3` from `1.26` to `2.6.3` to resolve CVEs:
+  - https://snyk.io/vuln/SNYK-PYTHON-URLLIB3-14896210
+  - https://snyk.io/vuln/SNYK-PYTHON-URLLIB3-14192443
+  - https://snyk.io/vuln/SNYK-PYTHON-URLLIB3-14192442
+- CASMCMS-9631: Updated `pyasn1` from `0.4.8` to `0.6.2` to resolve CVE:
+  - https://snyk.io/vuln/SNYK-PYTHON-PYASN1-15032639
+- CASMCMS-9631: Updated the following modules to meet the new version requirements caused by the above updates:
+  - `pyasn1-modules` from `0.2.8` to `0.4`
+  - `requests` from `2.25.1` to `2.31`
+
 ## [1.14.1] - 2025-07-02
 ### Dependencies
 - CASMCMS-9468: Specify different `requests-retry-session` version based on Python version
